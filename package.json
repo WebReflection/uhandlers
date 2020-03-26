@@ -1,6 +1,6 @@
 {
   "name": "uhandlers",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "µhtml attributes handlers",
   "main": "./cjs/index.js",
   "scripts": {
@@ -12,7 +12,11 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc node test/index.js"
   },
-  "keywords": ["uhtml", "handlers", "lighterhtml"],
+  "keywords": [
+    "uhtml",
+    "handlers",
+    "lighterhtml"
+  ],
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
