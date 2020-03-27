@@ -28,7 +28,7 @@ node.outerHTML;
 <details>
   <summary><strong>attribute(node, name)</strong></summary>
 
-Handle a generic attribute `name`, updating it when its value changes.
+Handle a generic attribute `name`, updating it only when its value changes.
 
 ```js
 const node = document.createElement('div');
@@ -45,6 +45,8 @@ attributeHandler(null);
 node.outerHTML;
 // <div></div>
 ```
+
+Please note that both `aria-attribute=${value}` and `data-attribute=${value}` are also perfectly valid, and better performing if the passed values never, or rarely, change.
 
 </details>
 
