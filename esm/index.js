@@ -6,22 +6,22 @@ export const aria = node => value => {
 };
 
 export const attribute = (node, name) => {
-  let oldValue, ownerLess = true;
-  const attributeNode = node.ownerDocument.createAttribute(name);
+  let oldValue, orphan = true;
+  const attributeNode = document.createAttribute(name);
   return newValue => {
     if (oldValue !== newValue) {
       oldValue = newValue;
       if (oldValue == null) {
-        if (!ownerLess) {
+        if (!orphan) {
           node.removeAttributeNode(attributeNode);
-          ownerLess = true;
+          orphan = true;
         }
       }
       else {
         attributeNode.value = newValue;
-        if (ownerLess) {
+        if (orphan) {
           node.setAttributeNode(attributeNode);
-          ownerLess = false;
+          orphan = false;
         }
       }
     }
