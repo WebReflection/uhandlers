@@ -7,20 +7,20 @@ export const aria = node => value => {
 
 export const attribute = (node, name) => {
   let oldValue, ownerLess = true;
-  const attribute = node.ownerDocument.createAttribute(name);
+  const attributeNode = node.ownerDocument.createAttribute(name);
   return newValue => {
     if (oldValue !== newValue) {
       oldValue = newValue;
       if (oldValue == null) {
         if (!ownerLess) {
-          node.removeAttributeNode(attribute);
+          node.removeAttributeNode(attributeNode);
           ownerLess = true;
         }
       }
       else {
-        attribute.value = newValue;
+        attributeNode.value = newValue;
         if (ownerLess) {
-          node.setAttributeNode(attribute);
+          node.setAttributeNode(attributeNode);
           ownerLess = false;
         }
       }
