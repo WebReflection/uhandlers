@@ -65,3 +65,14 @@ const setter = (node, key) => value => {
   node[key] = value;
 };
 exports.setter = setter;
+
+const text = node => {
+  let oldValue;
+  return newValue => {
+    if (oldValue != newValue) {
+      oldValue = newValue;
+      node.textContent = newValue == null ? '' : newValue;
+    }
+  };
+};
+exports.text = text;

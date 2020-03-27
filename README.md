@@ -5,7 +5,7 @@
 All [µhtml](https://github.com/WebReflection/uhtml#readme) attributes handlers.
 
 ```js
-import {aria, attribute, data, event, ref, setter} from 'uhandlers';
+import {aria, attribute, data, event, ref, setter, text} from 'uhandlers';
 ```
 
 # API
@@ -107,6 +107,21 @@ const setterHandler = setter(node, 'className');
 setterHandler('a b c');
 node.outerHTML;
 // <div class="a b c"></div>
+```
+
+</details>
+
+<details>
+  <summary><strong>text(node)</strong></summary>
+
+Set the node `textContent` when different from the previous one.
+
+```js
+const node = document.createElement('div');
+const textHandler = text(node);
+textHandler('a b c');
+node.textContent;
+// "a b c"
 ```
 
 </details>

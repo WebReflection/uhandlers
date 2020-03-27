@@ -1,6 +1,6 @@
 const {document} = require('basichtml').init();
 
-const {aria, attribute, data, event, ref, setter} = require('../cjs');
+const {aria, attribute, data, event, ref, setter, text} = require('../cjs');
 
 const div = document.createElement('div');
 
@@ -43,3 +43,11 @@ console.assert(object.node === div, 'ref=${callback}');
 const setterfy = setter(div, 'setter');
 setterfy('value');
 console.assert(div.setter === 'value', 'setter');
+
+const textfy = text(div);
+textfy(null);
+console.assert(div.textContent === '', 'text(null)');
+textfy('value');
+console.assert(div.textContent === 'value', 'text(value)');
+textfy(void 0);
+console.assert(div.textContent === '', 'text(void 0)');

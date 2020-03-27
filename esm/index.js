@@ -58,3 +58,13 @@ export const ref = node => value => {
 export const setter = (node, key) => value => {
   node[key] = value;
 };
+
+export const text = node => {
+  let oldValue;
+  return newValue => {
+    if (oldValue != newValue) {
+      oldValue = newValue;
+      node.textContent = newValue == null ? '' : newValue;
+    }
+  };
+};

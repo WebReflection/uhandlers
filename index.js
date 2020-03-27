@@ -65,6 +65,15 @@ var uhtmlHandlers = (function (exports) {
       node[key] = value;
     };
   };
+  var text = function text(node) {
+    var oldValue;
+    return function (newValue) {
+      if (oldValue != newValue) {
+        oldValue = newValue;
+        node.textContent = newValue == null ? '' : newValue;
+      }
+    };
+  };
 
   exports.aria = aria;
   exports.attribute = attribute;
@@ -72,6 +81,7 @@ var uhtmlHandlers = (function (exports) {
   exports.event = event;
   exports.ref = ref;
   exports.setter = setter;
+  exports.text = text;
 
   return exports;
 
