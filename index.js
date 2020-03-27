@@ -12,23 +12,23 @@ var uhtmlHandlers = (function (exports) {
   };
   var attribute = function attribute(node, name) {
     var oldValue,
-        noOwner = true;
-    var attribute = document.createAttribute(name);
+        ownerLess = true;
+    var attribute = node.ownerDocument.createAttribute(name);
     return function (newValue) {
       if (oldValue !== newValue) {
         oldValue = newValue;
 
         if (oldValue == null) {
-          if (!noOwner) {
+          if (!ownerLess) {
             node.removeAttributeNode(attribute);
-            noOwner = true;
+            ownerLess = true;
           }
         } else {
           attribute.value = newValue;
 
-          if (noOwner) {
+          if (ownerLess) {
             node.setAttributeNode(attribute);
-            noOwner = false;
+            ownerLess = false;
           }
         }
       }

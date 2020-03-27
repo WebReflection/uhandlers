@@ -8,22 +8,22 @@ const aria = node => value => {
 exports.aria = aria;
 
 const attribute = (node, name) => {
-  let oldValue, noOwner = true;
-  const attribute = document.createAttribute(name);
+  let oldValue, ownerLess = true;
+  const attribute = node.ownerDocument.createAttribute(name);
   return newValue => {
     if (oldValue !== newValue) {
       oldValue = newValue;
       if (oldValue == null) {
-        if (!noOwner) {
+        if (!ownerLess) {
           node.removeAttributeNode(attribute);
-          noOwner = true;
+          ownerLess = true;
         }
       }
       else {
         attribute.value = newValue;
-        if (noOwner) {
+        if (ownerLess) {
           node.setAttributeNode(attribute);
-          noOwner = false;
+          ownerLess = false;
         }
       }
     }
