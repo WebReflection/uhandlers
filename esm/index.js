@@ -9,9 +9,7 @@ export const attribute = (node, name) => {
   let oldValue, orphan = true;
   /* istanbul ignore next */
   const attributeNode = document.createAttributeNS(
-    `http://www.w3.org/${
-      'ownerSVGElement' in node ? '2000/svg' : '1999/xhtml'
-    }`,
+    'ownerSVGElement' in node ? 'http://www.w3.org/2000/svg' : null,
     name
   );
   return newValue => {
