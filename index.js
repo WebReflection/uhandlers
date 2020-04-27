@@ -10,8 +10,7 @@ var uhtmlHandlers = (function (exports) {
       }
     };
   };
-  var attribute = function attribute(node, name) {
-    var svg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'ownerSVGElement' in node;
+  var attribute = function attribute(node, name, svg) {
     var oldValue,
         orphan = true;
     /* istanbul ignore next */

@@ -5,7 +5,7 @@ export const aria = node => value => {
     node.setAttribute(key === 'role' ? key : `aria-${key}`, value[key]);
 };
 
-export const attribute = (node, name, svg = ('ownerSVGElement' in node)) => {
+export const attribute = (node, name, svg) => {
   let oldValue, orphan = true;
   /* istanbul ignore next */
   const attributeNode = document.createAttributeNS(

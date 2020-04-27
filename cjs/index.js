@@ -7,7 +7,7 @@ const aria = node => value => {
 };
 exports.aria = aria;
 
-const attribute = (node, name, svg = ('ownerSVGElement' in node)) => {
+const attribute = (node, name, svg) => {
   let oldValue, orphan = true;
   /* istanbul ignore next */
   const attributeNode = document.createAttributeNS(
