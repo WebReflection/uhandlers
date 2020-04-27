@@ -7,11 +7,11 @@ const aria = node => value => {
 };
 exports.aria = aria;
 
-const attribute = (node, name) => {
+const attribute = (node, name, svg = ('ownerSVGElement' in node)) => {
   let oldValue, orphan = true;
   /* istanbul ignore next */
   const attributeNode = document.createAttributeNS(
-    'ownerSVGElement' in node ? 'http://www.w3.org/2000/svg' : null,
+    svg ? 'http://www.w3.org/2000/svg' : null,
     name
   );
   return newValue => {

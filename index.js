@@ -11,11 +11,12 @@ var uhtmlHandlers = (function (exports) {
     };
   };
   var attribute = function attribute(node, name) {
+    var svg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'ownerSVGElement' in node;
     var oldValue,
         orphan = true;
     /* istanbul ignore next */
 
-    var attributeNode = document.createAttributeNS('ownerSVGElement' in node ? 'http://www.w3.org/2000/svg' : null, name);
+    var attributeNode = document.createAttributeNS(svg ? 'http://www.w3.org/2000/svg' : null, name);
     return function (newValue) {
       if (oldValue !== newValue) {
         oldValue = newValue;
