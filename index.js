@@ -22,14 +22,14 @@ var uhtmlHandlers = (function (exports) {
 
         if (oldValue == null) {
           if (!orphan) {
-            node.removeAttributeNode(attributeNode);
+            node.removeAttributeNodeNS(attributeNode);
             orphan = true;
           }
         } else {
           attributeNode.value = newValue;
 
           if (orphan) {
-            node.setAttributeNode(attributeNode);
+            node.setAttributeNodeNS(attributeNode);
             orphan = false;
           }
         }

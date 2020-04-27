@@ -17,14 +17,14 @@ export const attribute = (node, name, svg) => {
       oldValue = newValue;
       if (oldValue == null) {
         if (!orphan) {
-          node.removeAttributeNode(attributeNode);
+          node.removeAttributeNodeNS(attributeNode);
           orphan = true;
         }
       }
       else {
         attributeNode.value = newValue;
         if (orphan) {
-          node.setAttributeNode(attributeNode);
+          node.setAttributeNodeNS(attributeNode);
           orphan = false;
         }
       }
