@@ -9,7 +9,13 @@ exports.aria = aria;
 
 const attribute = (node, name) => {
   let oldValue, orphan = true;
-  const attributeNode = document.createAttribute(name);
+  /* istanbul ignore next */
+  const attributeNode = document.createAttributeNS(
+    `http://www.w3.org/${
+      'ownerSVGElement' in node ? '2000/svg' : '1999/xhtml'
+    }`,
+    name
+  );
   return newValue => {
     if (oldValue !== newValue) {
       oldValue = newValue;

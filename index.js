@@ -13,7 +13,9 @@ var uhtmlHandlers = (function (exports) {
   var attribute = function attribute(node, name) {
     var oldValue,
         orphan = true;
-    var attributeNode = document.createAttribute(name);
+    /* istanbul ignore next */
+
+    var attributeNode = document.createAttributeNS("http://www.w3.org/".concat('ownerSVGElement' in node ? '2000/svg' : '1999/xhtml'), name);
     return function (newValue) {
       if (oldValue !== newValue) {
         oldValue = newValue;
