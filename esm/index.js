@@ -5,13 +5,9 @@ export const aria = node => value => {
     node.setAttribute(key === 'role' ? key : `aria-${key}`, value[key]);
 };
 
-export const attribute = (node, name, svg) => {
+export const attribute = (node, name) => {
   let oldValue, orphan = true;
-  /* istanbul ignore next */
-  const attributeNode = document.createAttributeNS(
-    svg ? 'http://www.w3.org/2000/svg' : null,
-    name
-  );
+  const attributeNode = document.createAttributeNS(null, name);
   return newValue => {
     if (oldValue !== newValue) {
       oldValue = newValue;
