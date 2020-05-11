@@ -20,17 +20,17 @@
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "ascjs": "^4.0.0",
     "basichtml": "^2.2.8",
     "coveralls": "^3.1.0",
     "nyc": "^15.0.1",
-    "rollup": "^2.7.3",
+    "rollup": "^2.9.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.3.0",
-    "uglify-js": "^3.9.1"
+    "uglify-js": "^3.9.2"
   },
   "module": "./esm/index.js",
   "type": "module",

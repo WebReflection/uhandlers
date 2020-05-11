@@ -15,7 +15,7 @@ const attribute = (node, name) => {
       oldValue = newValue;
       if (oldValue == null) {
         if (!orphan) {
-          node.removeAttributeNodeNS(attributeNode);
+          node.removeAttributeNode(attributeNode);
           orphan = true;
         }
       }
