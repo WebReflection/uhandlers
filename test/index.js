@@ -9,6 +9,9 @@ ariafy({role: 'button', labelledBy: 'id'});
 console.assert(div.getAttribute('role') === 'button', 'role');
 console.assert(div.getAttribute('aria-labelledBy') === 'id', 'aria-labelled');
 
+ariafy({role: null, labelledBy: 'id'});
+console.assert(div.getAttribute('role') == null, 'dropped role');
+
 const attributefy = attribute(div, 'test');
 attributefy(null);
 attributefy('value');
@@ -25,6 +28,9 @@ console.assert(div.getAttribute('test') === 'test', 'attribute test');
 const datafy = data(div);
 datafy({labelledBy: 'id'});
 console.assert(div.dataset.labelledBy === 'id', 'data');
+
+datafy({labelledBy: null});
+console.assert(div.dataset.labelledBy == null, 'dropped data');
 
 const eventfy = event(div, 'onClick');
 eventfy(Object);

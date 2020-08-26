@@ -1,9 +1,15 @@
 'use strict';
 const {isArray} = require('uarray');
 
-const aria = node => value => {
-  for (const key in value)
-    node.setAttribute(key === 'role' ? key : `aria-${key}`, value[key]);
+const aria = node => values => {
+  for (const key in values) {
+    const name = key === 'role' ? key : `aria-${key}`;
+    const value = values[key];
+    if (value == null)
+      node.removeAttribute(name);
+    else
+      node.setAttribute(name, value);
+  }
 };
 exports.aria = aria;
 
@@ -31,9 +37,14 @@ const attribute = (node, name) => {
 };
 exports.attribute = attribute;
 
-const data = ({dataset}) => value => {
-  for (const key in value)
-    dataset[key] = value[key];
+const data = ({dataset}) => values => {
+  for (const key in values) {
+    const value = values[key];
+    if (value == null)
+      delete dataset[key];
+    else
+      dataset[key] = value;
+  }
 };
 exports.data = data;
 

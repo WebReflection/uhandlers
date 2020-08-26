@@ -1,8 +1,14 @@
 import {isArray} from 'uarray';
 
-export const aria = node => value => {
-  for (const key in value)
-    node.setAttribute(key === 'role' ? key : `aria-${key}`, value[key]);
+export const aria = node => values => {
+  for (const key in values) {
+    const name = key === 'role' ? key : `aria-${key}`;
+    const value = values[key];
+    if (value == null)
+      node.removeAttribute(name);
+    else
+      node.setAttribute(name, value);
+  }
 };
 
 export const attribute = (node, name) => {
@@ -28,9 +34,14 @@ export const attribute = (node, name) => {
   };
 };
 
-export const data = ({dataset}) => value => {
-  for (const key in value)
-    dataset[key] = value[key];
+export const data = ({dataset}) => values => {
+  for (const key in values) {
+    const value = values[key];
+    if (value == null)
+      delete dataset[key];
+    else
+      dataset[key] = value;
+  }
 };
 
 export const event = (node, name) => {
