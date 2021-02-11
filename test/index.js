@@ -50,9 +50,13 @@ console.assert(object.current === div, 'ref=${object}');
 reffy(node => { object.node = node; });
 console.assert(object.node === div, 'ref=${callback}');
 
-const setterfy = setter(div, 'setter');
+let setterfy = setter(div, 'setter');
 setterfy('value');
 console.assert(div.setter === 'value', 'setter');
+
+setterfy = setter(div, 'dataset');
+setterfy({test: 'ok'});
+console.assert(div.dataset.test === 'ok', 'setter as dataset');
 
 const textfy = text(div);
 textfy(null);

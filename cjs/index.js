@@ -80,9 +80,11 @@ const ref = node => value => {
 };
 exports.ref = ref;
 
-const setter = (node, key) => value => {
-  node[key] = value;
-};
+const setter = (node, key) => key === 'dataset' ?
+  data(node) :
+  value => {
+    node[key] = value;
+  };
 exports.setter = setter;
 
 const text = node => {

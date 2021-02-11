@@ -70,7 +70,7 @@ var uhtmlHandlers = (function (exports) {
     };
   };
   var setter = function setter(node, key) {
-    return function (value) {
+    return key === 'dataset' ? data(node) : function (value) {
       node[key] = value;
     };
   };

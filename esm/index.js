@@ -73,9 +73,11 @@ export const ref = node => value => {
     value.current = node;
 };
 
-export const setter = (node, key) => value => {
-  node[key] = value;
-};
+export const setter = (node, key) => key === 'dataset' ?
+  data(node) :
+  value => {
+    node[key] = value;
+  };
 
 export const text = node => {
   let oldValue;
