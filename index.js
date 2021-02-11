@@ -36,6 +36,12 @@ var uhtmlHandlers = (function (exports) {
       }
     };
   };
+
+  var _boolean = function _boolean(node, key) {
+    return function (value) {
+      if (value) node.setAttribute(key, '');else node.removeAttribute(key);
+    };
+  };
   var data = function data(_ref) {
     var dataset = _ref.dataset;
     return function (values) {
@@ -80,6 +86,7 @@ var uhtmlHandlers = (function (exports) {
 
   exports.aria = aria;
   exports.attribute = attribute;
+  exports.boolean = _boolean;
   exports.data = data;
   exports.event = event;
   exports.ref = ref;

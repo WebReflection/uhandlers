@@ -37,6 +37,14 @@ const attribute = (node, name) => {
 };
 exports.attribute = attribute;
 
+const boolean = (node, key) => value => {
+  if (value)
+    node.setAttribute(key, '');
+  else
+    node.removeAttribute(key);
+};
+exports.boolean = boolean;
+
 const data = ({dataset}) => values => {
   for (const key in values) {
     const value = values[key];

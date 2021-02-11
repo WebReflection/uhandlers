@@ -4,7 +4,7 @@ global.document = document;
 if (!('onclick' in HTMLElement.prototype))
   HTMLElement.prototype.onclick = function () {};
 
-const {aria, attribute, data, event, ref, setter, text} = require('../cjs');
+const {aria, attribute, boolean, data, event, ref, setter, text} = require('../cjs');
 
 const div = document.createElement('div');
 
@@ -61,3 +61,10 @@ textfy('value');
 console.assert(div.textContent === 'value', 'text(value)');
 textfy(void 0);
 console.assert(div.textContent === '', 'text(void 0)');
+
+const booleanify = boolean(div, 'boolean');
+console.assert(!div.hasAttribute('boolean'), 'no boolean');
+booleanify(1);
+console.assert(div.hasAttribute('boolean'), 'yes boolean');
+booleanify(0);
+console.assert(!div.hasAttribute('boolean'), 'no boolean again');

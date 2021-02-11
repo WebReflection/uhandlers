@@ -8,6 +8,7 @@ export default {
     terser()
   ],
   output: {
+    esModule: false,
     exports: 'named',
     file: './es.js',
     format: 'iife',
