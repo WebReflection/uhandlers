@@ -37,11 +37,15 @@ const attribute = (node, name) => {
 };
 exports.attribute = attribute;
 
-const boolean = (node, key) => value => {
-  if (value)
-    node.setAttribute(key, '');
-  else
-    node.removeAttribute(key);
+const boolean = (node, key, oldValue) => newValue => {
+  if (oldValue !== !!newValue) {
+    // when IE won't be around anymore ...
+    // node.toggleAttribute(key, oldValue = !!newValue);
+    if ((oldValue = !!newValue))
+      node.setAttribute(key, '');
+    else
+      node.removeAttribute(key);
+  }
 };
 exports.boolean = boolean;
 

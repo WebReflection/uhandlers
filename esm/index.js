@@ -34,11 +34,15 @@ export const attribute = (node, name) => {
   };
 };
 
-export const boolean = (node, key) => value => {
-  if (value)
-    node.setAttribute(key, '');
-  else
-    node.removeAttribute(key);
+export const boolean = (node, key, oldValue) => newValue => {
+  if (oldValue !== !!newValue) {
+    // when IE won't be around anymore ...
+    // node.toggleAttribute(key, oldValue = !!newValue);
+    if ((oldValue = !!newValue))
+      node.setAttribute(key, '');
+    else
+      node.removeAttribute(key);
+  }
 };
 
 export const data = ({dataset}) => values => {
