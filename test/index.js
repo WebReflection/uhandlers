@@ -1,8 +1,5 @@
-const {document, HTMLElement} = require('linkedom').parseHTML('');
+const {document} = require('linkedom').parseHTML('');
 global.document = document;
-
-if (!('onclick' in HTMLElement.prototype))
-  HTMLElement.prototype.onclick = function () {};
 
 const {aria, attribute, boolean, data, event, ref, setter, text} = require('../cjs');
 
