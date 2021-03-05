@@ -70,11 +70,17 @@ export const event = (node, name) => {
   };
 };
 
-export const ref = node => value => {
-  if (typeof value === 'function')
-    value(node);
-  else
-    value.current = node;
+export const ref = node => {
+  let oldValue;
+  return value => {
+    if (oldValue !== value) {
+      oldValue = value;
+      if (typeof value === 'function')
+        value(node);
+      else
+        value.current = node;
+    }
+  };
 };
 
 export const setter = (node, key) => key === 'dataset' ?

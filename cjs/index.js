@@ -76,11 +76,17 @@ const event = (node, name) => {
 };
 exports.event = event;
 
-const ref = node => value => {
-  if (typeof value === 'function')
-    value(node);
-  else
-    value.current = node;
+const ref = node => {
+  let oldValue;
+  return value => {
+    if (oldValue !== value) {
+      oldValue = value;
+      if (typeof value === 'function')
+        value(node);
+      else
+        value.current = node;
+    }
+  };
 };
 exports.ref = ref;
 

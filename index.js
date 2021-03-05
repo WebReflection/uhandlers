@@ -69,8 +69,12 @@ var uhtmlHandlers = (function (exports) {
     };
   };
   var ref = function ref(node) {
+    var oldValue;
     return function (value) {
-      if (typeof value === 'function') value(node);else value.current = node;
+      if (oldValue !== value) {
+        oldValue = value;
+        if (typeof value === 'function') value(node);else value.current = node;
+      }
     };
   };
   var setter = function setter(node, key) {

@@ -42,10 +42,23 @@ event(div, 'dataset');
 
 const reffy = ref(div);
 const object = {};
+
 reffy(object);
 console.assert(object.current === div, 'ref=${object}');
-reffy(node => { object.node = node; });
+
+// for coverage sake
+reffy(object);
+console.assert(object.current === div, 'ref=${object}');
+
+object.count = 0;
+const fn = node => { object.count++; object.node = node; };
+reffy(fn);
 console.assert(object.node === div, 'ref=${callback}');
+console.assert(object.count === 1, 'ref=${callback} invokes');
+
+reffy(fn);
+console.assert(object.node === div, 'ref=${callback}');
+console.assert(object.count === 1, 'ref=${callback} invokes');
 
 let setterfy = setter(div, 'setter');
 setterfy('value');
