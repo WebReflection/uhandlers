@@ -1,6 +1,6 @@
 {
   "name": "uhandlers",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "µhtml attributes handlers",
   "main": "./cjs/index.js",
   "scripts": {
