@@ -5,7 +5,7 @@
 All [µhtml](https://github.com/WebReflection/uhtml#readme) attributes handlers.
 
 ```js
-import {aria, attribute, data, event, ref, setter, text} from 'uhandlers';
+import {aria, attribute, data, event, foreign, ref, setter, text} from 'uhandlers';
 ```
 
 # API
@@ -80,6 +80,25 @@ node.click();
 ```
 
 </details>
+
+<details>
+  <summary><strong>foreign(handler, value)</strong></summary>
+
+Define any regular attribute name through arbitrary handlers, passing any value with it, as well as the node, and the attribute name.
+
+```js
+import {html, foreign} from 'uhtml';
+
+const handler = (node, name, value) => {
+  console.log(node, name, value);
+  return value.data; // or null/undefiend
+};
+
+html`<p any=${foreign(handler, {data: 123})}>foreign</p>`;
+```
+
+</details>
+
 
 <details>
   <summary><strong>ref(node)</strong></summary>
