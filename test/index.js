@@ -1,7 +1,7 @@
 const {document} = require('linkedom').parseHTML('');
 global.document = document;
 
-const {aria, attribute, boolean, data, event, ref, setter, text} = require('../cjs');
+const {aria, attribute, boolean, data, event, foreign, ref, setter, text} = require('../cjs');
 
 const div = document.createElement('div');
 
@@ -25,6 +25,21 @@ console.assert(div.hasAttribute('test'), 'attribute exists');
 attributefy('test');
 console.assert(div.getAttribute('test') === 'test', 'attribute test');
 
+const foreignify = attribute(div, 'foreign');
+let called = false;
+const handler = (node, name, value) => {
+  called = true;
+  if (value) {
+    console.assert(div === node, 'foreign handelr node');
+    console.assert(name === 'foreign', 'foreign handelr name');
+    console.assert(value === 'value', 'foreign handelr value');
+  }
+  return value;
+};
+foreignify(foreign(handler, 'value'));
+console.assert(called, 'foreign handelr');
+foreignify(foreign(handler, null));
+foreignify(foreign(handler, null));
 
 const datafy = data(div);
 datafy({labelledBy: 'id'});
