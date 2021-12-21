@@ -1,18 +1,16 @@
 import {isArray} from 'uarray';
 
+// flag for foreign checks (slower path, fast by default)
+let useForeign = false;
+
 export class Foreign {
   constructor(handler, value) {
+    useForeign = true;
     this._ = (...args) => handler(...args, value);
   }
 }
 
-// flag for foreign checks (slower path, fast by default)
-let useForeign = false;
-
-export const foreign = (handler, value) => {
-  useForeign = true;
-  return new Foreign(handler, value);
-};
+export const foreign = (handler, value) => new Foreign(handler, value);
 
 export const aria = node => values => {
   for (const key in values) {

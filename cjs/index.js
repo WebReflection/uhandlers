@@ -1,20 +1,18 @@
 'use strict';
 const {isArray} = require('uarray');
 
+// flag for foreign checks (slower path, fast by default)
+let useForeign = false;
+
 class Foreign {
   constructor(handler, value) {
+    useForeign = true;
     this._ = (...args) => handler(...args, value);
   }
 }
 exports.Foreign = Foreign
 
-// flag for foreign checks (slower path, fast by default)
-let useForeign = false;
-
-const foreign = (handler, value) => {
-  useForeign = true;
-  return new Foreign(handler, value);
-};
+const foreign = (handler, value) => new Foreign(handler, value);
 exports.foreign = foreign;
 
 const aria = node => values => {

@@ -9,8 +9,11 @@ var uhtmlHandlers = (function (exports) {
 
   var isArray = Array.isArray;
 
+  var useForeign = false;
   var Foreign = function Foreign(handler, value) {
     _classCallCheck(this, Foreign);
+
+    useForeign = true;
 
     this._ = function () {
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -19,11 +22,8 @@ var uhtmlHandlers = (function (exports) {
 
       return handler.apply(void 0, args.concat([value]));
     };
-  }; // flag for foreign checks (slower path, fast by default)
-
-  var useForeign = false;
+  };
   var foreign = function foreign(handler, value) {
-    useForeign = true;
     return new Foreign(handler, value);
   };
   var aria = function aria(node) {
