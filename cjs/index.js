@@ -27,32 +27,26 @@ const aria = node => values => {
 };
 exports.aria = aria;
 
+const getValue = value => value == null ? value : value.valueOf();
+
 const attribute = (node, name) => {
   let oldValue, orphan = true;
   const attributeNode = document.createAttributeNS(null, name);
   return newValue => {
-    if (oldValue !== newValue) {
-      oldValue = newValue;
-      if (oldValue == null) {
+    const value = useForeign && (newValue instanceof Foreign) ?
+                  newValue._(node, name) : getValue(newValue);
+    if (oldValue !== value) {
+      if ((oldValue = value) == null) {
         if (!orphan) {
           node.removeAttributeNode(attributeNode);
           orphan = true;
         }
       }
       else {
-        const value = useForeign && (newValue instanceof Foreign) ?
-                        newValue._(node, name) : newValue;
-        if (value == null) {
-          if (!orphan)
-            node.removeAttributeNode(attributeNode);
-            orphan = true;
-        }
-        else {
-          attributeNode.value = value;
-          if (orphan) {
-            node.setAttributeNodeNS(attributeNode);
-            orphan = false;
-          }
+        attributeNode.value = value;
+        if (orphan) {
+          node.setAttributeNodeNS(attributeNode);
+          orphan = false;
         }
       }
     }
@@ -61,10 +55,11 @@ const attribute = (node, name) => {
 exports.attribute = attribute;
 
 const boolean = (node, key, oldValue) => newValue => {
-  if (oldValue !== !!newValue) {
+  const value = !!getValue(newValue);
+  if (oldValue !== value) {
     // when IE won't be around anymore ...
-    // node.toggleAttribute(key, oldValue = !!newValue);
-    if ((oldValue = !!newValue))
+    // node.toggleAttribute(key, oldValue = !!value);
+    if ((oldValue = value))
       node.setAttribute(key, '');
     else
       node.removeAttribute(key);
@@ -123,9 +118,10 @@ exports.setter = setter;
 const text = node => {
   let oldValue;
   return newValue => {
-    if (oldValue != newValue) {
-      oldValue = newValue;
-      node.textContent = newValue == null ? '' : newValue;
+    const value = getValue(newValue);
+    if (oldValue != value) {
+      oldValue = value;
+      node.textContent = value == null ? '' : value;
     }
   };
 };

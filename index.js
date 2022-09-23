@@ -7,10 +7,29 @@ var uhtmlHandlers = (function (exports) {
     }
   }
 
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    Object.defineProperty(Constructor, "prototype", {
+      writable: false
+    });
+    return Constructor;
+  }
+
   var isArray = Array.isArray;
 
   var useForeign = false;
-  var Foreign = function Foreign(handler, value) {
+  var Foreign = /*#__PURE__*/_createClass(function Foreign(handler, value) {
     _classCallCheck(this, Foreign);
 
     useForeign = true;
@@ -22,7 +41,7 @@ var uhtmlHandlers = (function (exports) {
 
       return handler.apply(void 0, args.concat([value]));
     };
-  };
+  });
   var foreign = function foreign(handler, value) {
     return new Foreign(handler, value);
   };
@@ -35,32 +54,30 @@ var uhtmlHandlers = (function (exports) {
       }
     };
   };
+
+  var getValue = function getValue(value) {
+    return value == null ? value : value.valueOf();
+  };
+
   var attribute = function attribute(node, name) {
     var oldValue,
         orphan = true;
     var attributeNode = document.createAttributeNS(null, name);
     return function (newValue) {
-      if (oldValue !== newValue) {
-        oldValue = newValue;
+      var value = useForeign && newValue instanceof Foreign ? newValue._(node, name) : getValue(newValue);
 
-        if (oldValue == null) {
+      if (oldValue !== value) {
+        if ((oldValue = value) == null) {
           if (!orphan) {
             node.removeAttributeNode(attributeNode);
             orphan = true;
           }
         } else {
-          var value = useForeign && newValue instanceof Foreign ? newValue._(node, name) : newValue;
+          attributeNode.value = value;
 
-          if (value == null) {
-            if (!orphan) node.removeAttributeNode(attributeNode);
-            orphan = true;
-          } else {
-            attributeNode.value = value;
-
-            if (orphan) {
-              node.setAttributeNodeNS(attributeNode);
-              orphan = false;
-            }
+          if (orphan) {
+            node.setAttributeNodeNS(attributeNode);
+            orphan = false;
           }
         }
       }
@@ -69,10 +86,12 @@ var uhtmlHandlers = (function (exports) {
 
   var _boolean = function _boolean(node, key, oldValue) {
     return function (newValue) {
-      if (oldValue !== !!newValue) {
+      var value = !!getValue(newValue);
+
+      if (oldValue !== value) {
         // when IE won't be around anymore ...
-        // node.toggleAttribute(key, oldValue = !!newValue);
-        if (oldValue = !!newValue) node.setAttribute(key, '');else node.removeAttribute(key);
+        // node.toggleAttribute(key, oldValue = !!value);
+        if (oldValue = value) node.setAttribute(key, '');else node.removeAttribute(key);
       }
     };
   };
@@ -116,9 +135,11 @@ var uhtmlHandlers = (function (exports) {
   var text = function text(node) {
     var oldValue;
     return function (newValue) {
-      if (oldValue != newValue) {
-        oldValue = newValue;
-        node.textContent = newValue == null ? '' : newValue;
+      var value = getValue(newValue);
+
+      if (oldValue != value) {
+        oldValue = value;
+        node.textContent = value == null ? '' : value;
       }
     };
   };
